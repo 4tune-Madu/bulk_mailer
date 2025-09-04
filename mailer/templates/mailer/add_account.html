@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Add Email Account{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card p-4 shadow-sm rounded-4">
+            <h2 class="text-center mb-4">Add Email Account</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email Address</label>
+                    {{ form.email|add_class:"form-control" }}
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Password / App Password</label>
+                    {{ form.password|add_class:"form-control" }}
+                </div>
+
+                <!-- SMTP Server -->
+                <div class="mb-3">
+                    <label for="id_smtp_server" class="form-label">SMTP Server <small class="text-muted">(optional)</small></label>
+                    {{ form.smtp_server|add_class:"form-control" }}
+                </div>
+
+                <!-- SMTP Port -->
+                <div class="mb-3">
+                    <label for="id_smtp_port" class="form-label">SMTP Port <small class="text-muted">(optional)</small></label>
+                    {{ form.smtp_port|add_class:"form-control" }}
+                </div>
+
+                <!-- Hint -->
+                <small class="text-muted d-block mb-3" id="smtp-hint"></small>
+
+                <button type="submit" class="btn btn-dark w-100">Save Account</button>
+            </form>
+
+            <p class="text-center mt-3">
+                <a href="{% url 'home' %}">← Back to Home</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("id_email");
+    const smtpServerInput = document.getElementById("id_smtp_server");
+    const smtpPortInput = document.getElementById("id_smtp_port");
+    const hint = document.getElementById("smtp-hint");
+
+    const smtpConfig = {
+        "gmail.com":   { server: "smtp.gmail.com", port: 587, note: "Using Gmail (STARTTLS on port 587)" },
+        "outlook.com": { server: "smtp.office365.com", port: 587, note: "Using Outlook (STARTTLS on port 587)" },
+        "hotmail.com": { server: "smtp.office365.com", port: 587, note: "Using Hotmail (Outlook servers)" },
+        "yahoo.com":   { server: "smtp.mail.yahoo.com", port: 465, note: "Using Yahoo (SSL on port 465)" },
+        "zoho.com":    { server: "smtp.zoho.com", port: 587, note: "Using Zoho Mail (STARTTLS on port 587)" },
+    };
+
+    emailInput.addEventListener("blur", function () {
+        const email = emailInput.value.trim();
+        const domain = email.split("@")[1];
+        if (domain && smtpConfig[domain]) {
+            smtpServerInput.value = smtpConfig[domain].server;
+            smtpPortInput.value = smtpConfig[domain].port;
+            hint.textContent = smtpConfig[domain].note;
+        } else if (domain) {
+            hint.textContent = "Unrecognized domain. Please enter SMTP details manually.";
+        } else {
+            hint.textContent = "";
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="mb-5">Welcome to Bulk Mailer</h1>
+
+    <div class="row justify-content-center g-4">
+
+        {% if user.is_authenticated %}
+        <!-- Send Email -->
+        <div class="col-md-4 col-lg-3">
+            <div class="card p-4 h-100">
+                <i class="bi bi-envelope-fill icon mb-3"></i>
+                <h5>Send Email</h5>
+                <p>Compose and send bulk emails to your recipients.</p>
+                <a href="{% url 'send_email' %}" class="btn btn-dark">Go</a>
+            </div>
+        </div>
+
+        <!-- Add Account -->
+        <div class="col-md-4 col-lg-3">
+            <div class="card p-4 h-100">
+                <i class="bi bi-person-plus-fill icon mb-3"></i>
+                <h5>Add Email Account</h5>
+                <p>Add or manage your sending email accounts.</p>
+                <a href="{% url 'add_email_account' %}" class="btn btn-dark">Go</a>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="col-md-4 col-lg-3">
+            <div class="card p-4 h-100">
+                <i class="bi bi-person-circle icon mb-3"></i>
+                <h5>User Profile</h5>
+                <p>View and edit your personal info and email accounts.</p>
+                <a href="{% url 'profile' %}" class="btn btn-dark">Go</a>
+            </div>
+        </div>
+        {% else %}
+        <!-- Login -->
+        <div class="col-md-4 col-lg-3">
+            <div class="card p-4 h-100">
+                <i class="bi bi-box-arrow-in-right icon mb-3"></i>
+                <h5>Login</h5>
+                <p>Access your dashboard with your account.</p>
+                <a href="{% url 'login' %}" class="btn btn-dark">Go</a>
+            </div>
+        </div>
+
+        <!-- Signup -->
+        <div class="col-md-4 col-lg-3">
+            <div class="card p-4 h-100">
+                <i class="bi bi-person-plus icon mb-3"></i>
+                <h5>Signup</h5>
+                <p>Create a new account to start sending emails.</p>
+                <a href="{% url 'signup' %}" class="btn btn-dark">Go</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
