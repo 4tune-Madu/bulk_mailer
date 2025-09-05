@@ -74,7 +74,7 @@ DATABASES = {
         "NAME": os.getenv("DB_NAME", "bulk_mailer_db"),
         "USER": os.getenv("DB_USER", "bulk_user"),
         "PASSWORD": os.getenv("DB_PASSWORD", ""),
-        "HOST": os.getenv("DB_HOST", "localhost"),
+        "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
