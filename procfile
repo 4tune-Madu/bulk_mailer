@@ -1,0 +1,1 @@
+web: gunicorn bulk_mailer.wsgi:application
