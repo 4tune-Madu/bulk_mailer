@@ -7,8 +7,8 @@ import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env
-load_dotenv()
-
+ENV_FILE = ".env.local" if os.getenv("DJANGO_ENV") == "local" else ".env"
+load_dotenv(dotenv_path=ENV_FILE)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

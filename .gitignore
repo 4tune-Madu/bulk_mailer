@@ -30,4 +30,4 @@ Thumbs.db
 /migrations/.py
 
 # Node / frontend (if using npm/yarn)
-node_modules/
+node_modules/".env.local" 
